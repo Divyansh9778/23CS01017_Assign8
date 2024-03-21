@@ -1,34 +1,58 @@
 #include <stdio.h>
 void rotate(int row, int col, int n, int (*mat)[col])
 {
-    if (n % 4 == 0)
+    if (n % 4 == 1)
+    {
+        int rot_mat[col][row];
+        for (int i = 0; i < row; i++)
+            for (int j = 0; j < col; j++)
+                *(*(rot_mat + j) + (row - 1 - i)) = *(*(mat + i) + j);
+        for (int i = 0; i < col; i++)
+        {
+            for (int j = 0; j < row; j++)
+                printf("%d ", *(*(rot_mat + i) + j));
+            printf("\n");
+        }
+    }
+    else if (n % 4 == 2)
+    {
+        int rot_mat[row][col];
+        for (int i = 0; i < row; i++)
+            for (int j = 0; j < col; j++)
+                *(*(rot_mat + (row - 1 - i)) + (col - 1 - j)) = *(*(mat + i) + j);
         for (int i = 0; i < row; i++)
         {
             for (int j = 0; j < col; j++)
-                printf("%d ", *(*(mat + i) + j));
+                printf("%d ", *(*(rot_mat + i) + j));
             printf("\n");
         }
-    if (n % 4 == 1)
-        for (int j = 0; j < col; j++)
+    }
+    else if (n % 4 == 3)
+    {
+        int rot_mat[col][row];
+        for (int i = 0; i < row; i++)
+            for (int j = 0; j < col; j++)
+                *(*(rot_mat + (col - 1 - j)) + i) = *(*(mat + i) + j);
+        for (int i = 0; i < col; i++)
         {
-            for (int i = row - 1; i >= 0; i--)
-                printf("%d ", *(*(mat + i) + j));
+            for (int j = 0; j < row; j++)
+                printf("%d ", *(*(rot_mat + i) + j));
             printf("\n");
         }
-    if (n % 4 == 2)
-        for (int j = row - 1; j >= 0; j--)
+    }
+    else
+    {
+        int rot_mat[row][col];
+        for (int i = 0; i < row; i++)
+            for (int j = 0; j < col; j++)
+                *(*(rot_mat + i) + j) = *(*(mat + i) + j);
+        for (int i = 0; i < row; i++)
         {
-            for (int i = col - 1; i >= 0; i--)
-                printf("%d ", *(*(mat + j) + i));
+            for (int j = 0; j < col; j++)
+                printf("%d ", *(*(rot_mat + i) + j));
             printf("\n");
         }
-    if (n % 4 == 3)
-        for (int j = col - 1; j >= 0; j--)
-        {
-            for (int i = 0; i < row; i++)
-                printf("%d ", *(*(mat + i) + j));
-            printf("\n");
-        }
+    }
 }
 int main()
 {
